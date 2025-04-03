@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Sports</th>
+            <th>Extras</th>
+        </tr>
+        {% for registrant in registrants %}
+            {% if registrants[registrant] is iterable and registrants[registrant] is not string %}
+                {% for sport in registrants[registrant] %}
+                    <tr>
+                        <td>{{ registrant }}</td>
+                        <td>{{ sport }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>{{ registrant }}</td>
+                    <td>{{ registrants[registrant] }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+{% endblock %}
