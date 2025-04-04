@@ -12,16 +12,18 @@
         </tr>
         {% for registrant in registrants %}
             <tr>
-                <td>{{ registrant }}</td>
-                <td>{{ registrants[registrant] }}</td>
+                <td>{{ registrant.name }}</td>
+                <td>{{ registrant.sports }}</td>
                 <td>
                     <form action="/deregister" method="post">
-                        <input type="hidden" name="id" value="{{ registrant }}">
+                        <input type="hidden" name="id" value="{{ registrant.id }}">
                         <button type="submit">Deregister</button>
                     </form>
                 </td>
             </tr>
         {% endfor %}
     </table>
+
+    <button type="button" onclick="window.location.href='/register'">Add New</button>
 
 {% endblock %}
