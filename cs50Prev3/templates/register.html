@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Registration{% endblock %}
+
+{% block body %}
+
+    <form action="/register" method="post">
+        <input name="name" placeholder="Name" type="text">
+        {% for sport in sports %}
+            <input type="radio" name="sport" value="{{ sport }}"> {{ sport }} 
+        {% endfor %}
+        <button type="submit">Register</button>
+    </form>
+    <br><br>
+    <form action="/list">
+        <button type="submit">View the List</button>
+    </form>
+
+{% endblock %}
