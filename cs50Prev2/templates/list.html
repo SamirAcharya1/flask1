@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block body %}
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Sports</th>
+            <th>Extras</th>
+        </tr>
+        {% for registrant in registrants %}
+            <tr>
+                <td>{{ registrant }}</td>
+                <td>{{ registrants[registrant] }}</td>
+                <td>
+                    <form action="/deregister" method="post">
+                        <input type="hidden" name="id" value="{{ registrant }}">
+                        <button type="submit">Deregister</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
