@@ -8,7 +8,8 @@
         <tr>
             <th>Name</th>
             <th>Sports</th>
-            <th>Extras</th>
+            <th>Deregister</th>
+            <th>Update</th>
         </tr>
         {% for registrant in registrants %}
             <tr>
@@ -18,6 +19,12 @@
                     <form action="/deregister" method="post">
                         <input type="hidden" name="id" value="{{ registrant.id }}">
                         <button type="submit">Deregister</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/update" method="post">
+                        <input type="hidden" name="id" value="{{ registrant.id }}">
+                        <button type="submit">Update</button>
                     </form>
                 </td>
             </tr>
