@@ -9,6 +9,10 @@ SPORTS = ["Basketball", "Soccer", "Ultimate Frisbee"]
 
 REGISTRANTS = {}
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
 @app.route("/",)
 def index():
     return render_template("register.html", sports=SPORTS)
