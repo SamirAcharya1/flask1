@@ -3,6 +3,7 @@
 {% block title %}Landing Page{% endblock %}
 
 {% block body %}
+{% if username %}<p>Logged in as {{ username }}</p>{% endif %}
 
 <form action="/register">
     <button type="submit">LogIn</button>
