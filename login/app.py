@@ -1,15 +1,20 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+from flask_session import Session
 from func import generate_user_id, validEmail
 from cs50 import SQL
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
 db = SQL("sqlite:///userdata.db")
 
 @app.route("/")
 def index():
-    userId = request.args.get("userId")
+    userId = session.get("userId")
     if not userId:
         return render_template("index.html")
     else:
@@ -35,13 +40,16 @@ def login():
         elif len(password) < 8:
             return "failure"
         
+        userId = generate_user_id(user)
+        
         try:
-            hashedPass = db.execute("SELECT password_hash FROM users WHERE id = ?", generate_user_id(user))
+            hashedPass = db.execute("SELECT password_hash FROM users WHERE id = ?", userId)
         except Exception as e:
             return "Exception"
         
         if hashedPass and check_password_hash(hashedPass[0]["password_hash"], password):
-            return redirect(url_for('index', userId=generate_user_id(user)))
+            session["userId"] = userId
+            return redirect("/")
         else:
             return "Log In Failed" 
             
@@ -72,4 +80,9 @@ def signup():
         
         return redirect(url_for("index", userId=userId))
     
+    return redirect("/")
+
+@app.route("/logout")
+def logout():
+    session.clear()
     return redirect("/")
